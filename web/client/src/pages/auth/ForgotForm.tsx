@@ -67,7 +67,7 @@ export const ForgotForm = () => {
     <div className="flex flex-row flex-grow">
       <div className="hidden lg:block lg:w-1/3">
         <video className="object-cover w-full h-screen no-drag" autoPlay muted loop>
-          <source src="/assets/police.mp4" type="video/mp4" /> {/* https://cdn.dribbble.com/uploads/48226/original/b8bd4e4273cceae2889d9d259b04f732.mp4?1689028949 */}
+          <source src="/assets/crypto.mp4" type="video/mp4" /> {/* https://cdn.dribbble.com/uploads/48226/original/b8bd4e4273cceae2889d9d259b04f732.mp4?1689028949 */}
             Your browser does not support the video tag.
         </video>
       </div>

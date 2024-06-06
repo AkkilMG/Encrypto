@@ -2,38 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { DashboardMain } from './layers/main';
 import { DashboardSettings } from './layers/settings';
-import { UserCard } from '../../components/admins/user_card';
 import axios from 'axios';
-import { DashboardUsers } from './layers/user';
-import { DashboardCases } from './layers/cases';
 
 const DashboardHeader: React.FC = () => {
   var [dropdown, setDropdown] = useState(false);
   const navigation = useNavigate();
   const token = localStorage.getItem("token");
   const [isAdmin, setIsAdmin] = useState(false)
-  const checkAdmin = async () => {
-    // try{
-      const response = await axios.get('http://localhost:7000/api/auth/check-admin', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      }
-    });
-    console.log(response)
-    if (response.status === 200 && response.data.success) {
-      setIsAdmin(true);
-    }
-    // } catch (e) {
-    //   console.log(e)
-    // }
-  }
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token === null || token === undefined) {
       navigation('/signin');
     }
-    checkAdmin();
   })
   const getSignout = () => {
     localStorage.removeItem('token');
@@ -115,21 +95,21 @@ const DashboardHeader: React.FC = () => {
                 </a>
             </li>
             <li>
-                <a href="/evidence" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <img src="/assets/evidence.svg" className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" height={10} width={10} />
-                  <span className="flex-1 ms-3 whitespace-nowrap">Evidence Submission</span>
+                <a href="/encrypt" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <img src="/assets/ende.svg" className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" height={10} width={10} />
+                  <span className="flex-1 ms-3 whitespace-nowrap">Image Encryption</span>
                 </a>
             </li>
             <li>
-                <a href="/report" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <img src="/assets/report.svg" className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" height={10} width={10} />
-                  <span className="flex-1 ms-3 whitespace-nowrap">Report case</span>
+                <a href="/decrypt" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <img src="/assets/ende.svg" className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" height={10} width={10} />
+                  <span className="flex-1 ms-3 whitespace-nowrap">Image Decryption</span>
                 </a>
             </li>
             <li>
-                <a href="/track-case" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <img src="/assets/tracking.svg" className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" height={10} width={10} />
-                  <span className="flex-1 ms-3 whitespace-nowrap">Track Case</span>
+                <a href="/sqlinjection" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <img src="/assets/sqlinjection.svg" className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" height={10} width={10} />
+                  <span className="flex-1 ms-3 whitespace-nowrap">SQL Injection</span>
                 </a>
             </li>
           </ul>
@@ -209,11 +189,7 @@ const Dashboard: React.FC = () => {
     somewhere = <DashboardMain />;
   } else if (path === "settings" || path === "setting" ) {
     somewhere = <DashboardSettings />;
-  } else if (path === "user" || path === "users") {
-    somewhere = <DashboardUsers />;
-  } else if (path === "case" || path === "cases") {
-    somewhere = <DashboardCases />;
-  } 
+  }
   return (
     <>
       <DashboardHeader />

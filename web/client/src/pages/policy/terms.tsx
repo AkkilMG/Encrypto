@@ -10,7 +10,7 @@ export const Terms = () => {
       <div className="flex flex-row flex-grow h-full">
         <div className="hidden h-full lg:block lg:w-1/3">
           <video className="object-cover w-full h-full no-drag" autoPlay muted loop>
-            <source src="/assets/police.mp4" type="video/mp4" /> 
+            <source src="/assets/crypto.mp4" type="video/mp4" /> 
               Your browser does not support the video tag.
           </video>
         </div>

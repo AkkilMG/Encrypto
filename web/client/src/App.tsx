@@ -6,18 +6,18 @@ import { Home } from './pages/home/Home';
 import { NotFoundPage } from './pages/extras/NotFound';
 import { Header } from './components/common/header';
 import { Footer } from './components/common/footer';
-import { Reporting } from './pages/reporting/Reporting';
 import { ScreenLoading } from './components/common/lottie';
 import { ForgotForm } from './pages/auth/ForgotForm';
 import Dashboard from './pages/dashboard/dashboard';
-import { Evidence } from './pages/evidence/Evidence';
-import { TrackCase } from './pages/track-case/track-case';
 import { Privacy } from './pages/policy/privacy';
 import { Terms } from './pages/policy/terms';
 import axios from 'axios';
+import { ImgEncrypt } from './pages/image/imgEncrypt';
+import { ImgDecrypt } from './pages/image/imgDecrypt';
+import { SQLInjection } from './pages/sqlinjection/sqlinjection';
 
 
-const Routing= () => {
+const Routing: React.FC = () => {
   var { path } = useParams();
   // console.log(path);
   const [loading, setLoading] = useState(true);
@@ -32,6 +32,12 @@ const Routing= () => {
   let component;
   if (path === undefined || path === "/") {
     component = <Home />
+  } else if (path === "encrypt") {
+    component = <ImgEncrypt />
+  } else if (path === "decrypt") {
+    component = <ImgDecrypt />
+  } else if (path === "sqlinjection") {
+    component = <SQLInjection />
   } else {
     component = <NotFoundPage />;
   }
@@ -83,13 +89,14 @@ export const App = () => {
       <Route path="/signin" element={<Signin />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/forgot" element={<ForgotForm />} />
-      {/* Pages */}
-      <Route path="/report" element={<Reporting />} />
-      <Route path="/evidence" element={<Evidence />} />
-      <Route path="/track-case" element={<TrackCase />} />
       {/* Policy */}
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
+      {/* Crypto */}
+      {/* <Route path="/encrypt" element={<ImgEncrypt />} />
+      <Route path="/decrypt" element={<ImgDecrypt />} />
+
+      <Route path="/sqlinjection" element={<SQLInjection />} /> */}
       {/* Dashboard */}
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/:path" element={<Dashboard />} />

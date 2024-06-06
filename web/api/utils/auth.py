@@ -7,7 +7,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
 
 from config import KEY
-from web.api.utils.crypt import decrypt
+from utils.crypt import decrypt, encrypt
 security = HTTPBearer()
 
 async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
@@ -35,7 +35,7 @@ async def create_token(id: str) -> dict:
         print(f"createToken: {e}")
         return {"success": False, "message": "Authentication failed"}
 
-def check_password(password: str) -> dict:
+async def check_password(password: str) -> dict:
     if len(password) < 8:
         return {"success": False, "message": "Password must be at least 8 characters."}
     if not any(c.islower() for c in password):
@@ -47,11 +47,3 @@ def check_password(password: str) -> dict:
     if not any(c in "!@#$%^&*()-_=+[]{};':\"\\|,.<>/?" for c in password):
         return {"success": False, "message": "At least one special character is required."}
     return {"success": True}
-
-# @app.post("/create-token")
-# async def create_token_endpoint(id: str):
-#     return await create_token(id)
-
-# @app.post("/check-password")
-# async def check_password_endpoint(password: str):
-#     return check_password(password)

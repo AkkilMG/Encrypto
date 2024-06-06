@@ -5,7 +5,7 @@
 from fastapi import APIRouter, Request, UploadFile, File
 from fastapi.responses import JSONResponse
 
-from web.api.database.authDB import Signin, Signup
+from database.authDB import Signin, Signup
 
 router = APIRouter()
 

@@ -9,6 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from config import *
 import router.auth_router as auth_router
+import router.crypto_router as crypto_router
 
 app = FastAPI(
     title="Cryptography-Project",
@@ -38,13 +39,14 @@ app.get("/")
 async def home():
     return JSONResponse({ "success": True })
 
-app.include_router(auth_router.router, prefix="/api/v1/auth")
+app.include_router(auth_router.router, prefix="/api/auth")
+app.include_router(crypto_router.router, prefix="/api/crypto")
 
 
 if __name__ == "__main__":
     try:
         print('------------------- Initalizing Web Server -------------------')
         print('----------------------- Service Started -----------------------')
-        uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+        uvicorn.run("app:app", host="0.0.0.0", port=7000, reload=True)
     except KeyboardInterrupt:
         print('----------------------- Service Stopped -----------------------')

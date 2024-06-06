@@ -8,7 +8,7 @@ from base64 import b64encode, b64decode
 
 from config import KEY
 
-def encrypt(text: str) -> str:
+async def encrypt(text: str) -> str:
     cipher = Cipher(algorithms.AES(KEY), modes.ECB(), backend=default_backend())
     encryptor = cipher.encryptor()
     padder = padding.PKCS7(algorithms.AES.block_size).padder()
@@ -17,7 +17,7 @@ def encrypt(text: str) -> str:
     ciphertext = b64encode(encrypted_data).decode('utf-8').replace('/', ':')
     return ciphertext
 
-def decrypt(ciphertext: str) -> str:
+async def decrypt(ciphertext: str) -> str:
     encrypted_data = b64decode(ciphertext.replace(':', '/'))
     cipher = Cipher(algorithms.AES(KEY), modes.ECB(), backend=default_backend())
     decryptor = cipher.decryptor()

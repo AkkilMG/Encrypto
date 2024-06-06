@@ -21,11 +21,9 @@ export const Signup = () => {
 
   
   const [formData, setFormData] = useState({ 
-    Username: '',
-    Password: '',
-    Email: '',
-    PhoneNumber: '',
-    WANumber: '',
+    name: '',
+    password: '',
+    email: ''
  });
   const [error, setError] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,7 +36,7 @@ export const Signup = () => {
 
   const handleSubmit = async () => {
     try {
-      if (formData.Email === '' || formData.Password === '' || formData.Username === '' || formData.PhoneNumber === '' || formData.WANumber === '') {
+      if (formData.email === '' || formData.password === '' || formData.name === '') {
         setError('Please fill in all fields.');
       } else {
         console.log(formData);
@@ -72,7 +70,7 @@ export const Signup = () => {
       <div className="flex flex-row flex-grow">
         <div className="hidden lg:block lg:w-1/3">
           <video className="object-cover w-full h-screen no-drag" autoPlay muted loop>
-            <source onCanPlayThrough={() => setLoading(false)} src="/assets/police.mp4" type="video/mp4" /> {/* https://cdn.dribbble.com/uploads/48226/original/b8bd4e4273cceae2889d9d259b04f732.mp4?1689028949 */}
+            <source onCanPlayThrough={() => setLoading(false)} src="/assets/crypto.mp4" type="video/mp4" /> {/* https://cdn.dribbble.com/uploads/48226/original/b8bd4e4273cceae2889d9d259b04f732.mp4?1689028949 */}
             Your browser does not support the video tag.
           </video>
         </div>
@@ -83,31 +81,19 @@ export const Signup = () => {
               <div className="mb-4">
                 <label className="block mb-2 font-bold text-gray-700 text-sl"> Name </label>
                 <input className="w-full px-3 py-2 leading-tight text-gray-700 border rounded-lg shadow appearance-none h-14 focus:border-indigo-500 focus:shadow-lg focus:outline-none focus:ring-2"
-                value={formData.Username} onChange={handleChange} name="Username" type="text" />
-              </div>
-              <div className="flex flex-row mb-4">
-                <div className='w-1/2 pr-4'>
-                  <label className="block mb-2 font-bold text-gray-700 text-sl"> Phone Number </label>
-                  <input className="w-full px-3 py-2 leading-tight text-gray-700 border rounded-lg shadow appearance-none h-14 focus:border-indigo-500 focus:shadow-lg focus:outline-none focus:ring-2"
-                  value={formData.PhoneNumber} onChange={handleChange} name="PhoneNumber" type="tel" />
-                </div>
-                <div className='w-1/2'>
-                  <label className="block mb-2 font-bold text-gray-700 text-sl"> WhatsApp Number </label>
-                  <input className="w-full px-3 py-2 leading-tight text-gray-700 border rounded-lg shadow appearance-none h-14 focus:border-indigo-500 focus:shadow-lg focus:outline-none focus:ring-2"
-                  value={formData.WANumber} onChange={handleChange} name="WANumber" type="tel" />
-                </div>
+                value={formData.name} onChange={handleChange} name="name" type="text" />
               </div>
               <div className="mb-4">
-                <label className="block mb-2 font-bold text-gray-700 text-sl"> Email </label>
+                <label className="block mb-2 font-bold text-gray-700 text-sl"> email </label>
                 <input className="w-full px-3 py-2 leading-tight text-gray-700 border rounded-lg shadow appearance-none h-14 focus:border-indigo-500 focus:shadow-lg focus:outline-none focus:ring-2"
-                value={formData.Email} onChange={handleChange} name="Email" type="email" />
+                value={formData.email} onChange={handleChange} name="email" type="email" />
               </div>
               <div className="mb-6">
                 <span className="flex items-center justify-between mb-2 font-sans font-bold text-gray-700 text-sl">
-                  Password
+                  password
                 </span>
                 <input placeholder='8+ characters' className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded-lg shadow appearance-none focus:border-indifo-500 h-14 focus:outline-none focus:ring"
-                value={formData.Password} onChange={handleChange} name="Password" type="password" />
+                value={formData.password} onChange={handleChange} name="password" type="password" />
               </div>
               {error && (
               <div className="mb-6">

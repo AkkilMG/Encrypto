@@ -2,8 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-@import 'leaflet/dist/leaflet.css';
-
 .no-drag {
     -webkit-user-drag: none;
     -khtml-user-drag: none;

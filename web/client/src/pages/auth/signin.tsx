@@ -15,11 +15,10 @@ export const Signin = () => {
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
-
     return () => clearTimeout(timer); // Clear the timer when the component unmounts
   }, []);
 
-  const [formData, setFormData] = useState({ Email: '', Password: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -31,7 +30,7 @@ export const Signin = () => {
 
   const handleSubmit = async () => {
     try {
-      if (formData.Email === '' || formData.Password === '') {
+      if (formData.email === '' || formData.password === '') {
         setError('Please fill in all fields.');
       } else {
         const response = await axios.post('http://localhost:7000/api/auth/signin', formData);
@@ -63,7 +62,7 @@ export const Signin = () => {
       <div className="flex flex-row flex-grow">
         <div className="hidden lg:block lg:w-1/3">
           <video className="object-cover w-full h-screen no-drag" autoPlay muted loop>
-            <source src="/assets/police.mp4" type="video/mp4" /> {/* https://cdn.dribbble.com/uploads/48226/original/b8bd4e4273cceae2889d9d259b04f732.mp4?1689028949 */}
+            <source src="/assets/crypto.mp4" type="video/mp4" /> {/* https://cdn.dribbble.com/uploads/48226/original/b8bd4e4273cceae2889d9d259b04f732.mp4?1689028949 */}
               Your browser does not support the video tag.
           </video>
         </div>
@@ -72,17 +71,17 @@ export const Signin = () => {
             <h2 className="flex flex-row mb-6 text-2xl font-bold">Sign in to <span> </span><img src='./assets/logo-dark.png' className='w-40 no-drag' alt='Cryptography Project' /></h2>
             <div>
               <div className="mb-4">
-                <label className="block mb-2 font-bold text-gray-700 text-sl"> Email </label>
+                <label className="block mb-2 font-bold text-gray-700 text-sl"> email </label>
                 <input className="w-full px-3 py-2 leading-tight text-gray-700 border rounded-lg shadow appearance-none h-14 focus:border-indigo-500 focus:shadow-lg focus:outline-none focus:ring-2" 
-                  value={formData.Email} onChange={handleChange} name="Email" type="email" />
+                  value={formData.email} onChange={handleChange} name="email" type="email" />
               </div>
               <div className="mb-6">
                 <span className="flex items-center justify-between mb-2 font-sans font-bold text-gray-700 text-sl">
-                  Password
+                  password
                   <a href="/forgot" className="font-sans text-sm font-normal text-gray-600 underline cursor-pointer">Forgot?</a>
                 </span>
                 <input className="w-full px-3 py-2 mb-3 leading-tight text-gray-700 border rounded-lg shadow appearance-none focus:border-indifo-500 h-14 focus:outline-none focus:ring" 
-                  value={formData.Password} onChange={handleChange} name="Password" type="password" />
+                  value={formData.password} onChange={handleChange} name="password" type="password" />
               </div>
               {error && (
               <div className="mb-6">

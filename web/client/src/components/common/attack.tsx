@@ -5,12 +5,13 @@
 
 import React, { useState } from 'react';
 import Lottie from 'react-lottie';
-import loadingData from '../../assets/server.json';
-export const ScreenLoading = () => {
+import attackData from '../../assets/attack.json';
+
+export const AttackLoading = () => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: loadingData,
+    animationData: attackData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice'
     }
