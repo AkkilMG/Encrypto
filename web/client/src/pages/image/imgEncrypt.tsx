@@ -26,8 +26,21 @@ export const ImgEncrypt: React.FC = () => {
   const inputType = showPassword ? 'text' : 'password';
 
   const handlePasswordChange = (e: any) => {
-    setPassword(e.target.value);
+    setPassword(e.target.value.trim());
   };
+
+  const downloadFile = () => {
+    if (encryptedFile !== null && encryptedFile !== '') {
+      const link = document.createElement('a');
+      link.href = encryptedFile;
+      link.download = 'download.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      alert('No file to download')
+    }
+  }
 
   const handleEncrypt = () => {
     if (!selectedFile) {
@@ -38,16 +51,19 @@ export const ImgEncrypt: React.FC = () => {
       alert('Please provide password to secure the file.');
       return;
     }
-
+    console.log("Password: ", password);
     const reader = new FileReader();
     reader.onload = (event: ProgressEvent<FileReader>) => {
+      console.log("Encrypting file...")
       if (event.target) {
+        console.log("Entered here")
         const fileContent = (event.target.result as string).split(',')[1];
         const encrypted = CryptoJS.AES.encrypt(fileContent, password).toString();
         const blob = new Blob([encrypted], { type: 'text/plain' });
         try {
           const formData = new FormData();
           formData.append('file', blob, selectedFile.name);
+          console.log("Uploading file...");
           const config = {
             headers: {
               // accept: 'application/json',
@@ -57,7 +73,7 @@ export const ImgEncrypt: React.FC = () => {
           axios
             .post('https://picdb-api.onrender.com/api/v1/upload', formData, config)
             .then((response: any) => {
-              // console.log(response.data['success']);
+              console.log(response.data['success']);
               if (response.data['success'] === true) {
                 setEncryptedFile(response.data['durl']);
                 console.log(response.data['durl'], encryptedFile);
@@ -72,25 +88,34 @@ export const ImgEncrypt: React.FC = () => {
         } catch (error: any) {
           alert('Error uploading file:' + error);
         }
+      } else {
+        alert('Error reading file');
       }
     };
-    // reader.readAsDataURL(selectedFile);
+    console.log(encryptedFile)
+    reader.readAsDataURL(selectedFile);
   };
 
   return (
     <div className="flex items-end justify-center w-full">
       <div className="relative mr-4 text-left md:w-full lg:w-full xl:w-1/2">
         { (encryptedFile !== null) ? (
-          <div className="relative flex items-center justify-center px-4 py-12 bg-no-repeat bg-cover sm:px-6 lg:px-8">
-            <div className="absolute inset-0 z-0"></div>
-            <div className="z-10 w-full p-10 bg-gray-700 bg-opacity-90 sm:max-w-lg rounded-xl">
+          <div className="relative flex items-center justify-center px-4 py-12 bg-no-repeat bg-cover mt-14 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 z-0 mt-14 py-14"></div>
+            <div className="z-10 w-full p-10 bg-gray-700 py-14 bg-opacity-90 sm:max-w-lg rounded-xl">
               <div className="mt-8 space-y-3">  {/*encType="multipart/form-data">*/}
-                <div className="grid grid-cols-1 space-y-2">
-                  <div className="mt-6">
-                  <input type="text" className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 dark:bg-gray-800 dark:text-gray-200" 
-                    value={encryptedFile} disabled />
-                </div>
-                </div>
+                {/* <div className="grid grid-cols-1 space-y-2"> */}
+                  <label className="text-sm font-bold tracking-wide text-gray-200">
+                  URL of encrypted image!
+                  </label>
+                  <div className="w-full">
+                    {/* <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-200 border-dashed rounded-lg cursor-pointer hover:bg-white hover:bg-opacity-20"> */}
+                      <input type="text" className="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 dark:bg-gray-800 dark:text-gray-200" 
+                        value={encryptedFile} disabled />
+                    {/* </label> */}
+                  </div>
+                {/* </div> */}
+                <button onClick={downloadFile} className='px-4 py-2 mt-6 font-bold text-white bg-gray-500 rounded hover:bg-gray-700'>Download!</button>
               </div>
             </div>
           </div>
