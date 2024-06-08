@@ -50,12 +50,16 @@ export const ImgDecrypt: React.FC = () => {
       const decryptedDataUrl = `data:image/png;base64,${decrypted}`;
       setDecryptedFile(decryptedDataUrl);
       console.log(decryptedDataUrl)
-      const link = document.createElement('a');
-      link.href = decryptedDataUrl;
-      link.download = "download.png";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      if (decryptedDataUrl) {
+        const link = document.createElement('a');
+        link.href = decryptedDataUrl;
+        link.download = "download.png";
+        document.body.appendChild(link);
+        link.click(); 
+        document.body.removeChild(link);
+      } else {
+        alert('Decryption failed. Please ensure the file and key are correct.');
+      }
       setLoading(false)
     } catch (error) {
       setLoading(false)
