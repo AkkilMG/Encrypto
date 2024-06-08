@@ -1,18 +1,20 @@
 /**
  * @author: @AkkilMG
- * @description: DBMS Project - Cryptography Project
+ * @description: Cryptography Project - Encrypto
  */
 
 import React, { useState, ChangeEvent } from 'react';
 import CryptoJS from 'crypto-js';
 import axios from 'axios';
+import { AttackLoading } from '../../components/common/attack';
 
 export const ImgEncrypt: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [encryptedFile, setEncryptedFile] = useState<string | null>(null);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(false);
+  const [dl, setDL] = useState('');
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       setSelectedFile(event.target.files[0]);
@@ -30,9 +32,9 @@ export const ImgEncrypt: React.FC = () => {
   };
 
   const downloadFile = () => {
-    if (encryptedFile !== null && encryptedFile !== '') {
+    if (dl !== null && dl !== '') {
       const link = document.createElement('a');
-      link.href = encryptedFile;
+      link.href = dl;
       link.download = 'download.png';
       document.body.appendChild(link);
       link.click();
@@ -42,16 +44,18 @@ export const ImgEncrypt: React.FC = () => {
     }
   }
 
-  const handleEncrypt = () => {
+  const handleEncrypt = async () => {
+    setLoading(true);
     if (!selectedFile) {
       alert('Please select a file');
+      setLoading(false);
       return;
     }
     if (password === '') {
       alert('Please provide password to secure the file.');
+      setLoading(false);
       return;
     }
-    console.log("Password: ", password);
     const reader = new FileReader();
     reader.onload = (event: ProgressEvent<FileReader>) => {
       console.log("Encrypting file...")
@@ -73,22 +77,48 @@ export const ImgEncrypt: React.FC = () => {
           axios
             .post('https://picdb-api.onrender.com/api/v1/upload', formData, config)
             .then((response: any) => {
-              console.log(response.data['success']);
               if (response.data['success'] === true) {
-                setEncryptedFile(response.data['durl']);
-                console.log(response.data['durl'], encryptedFile);
+                const token = localStorage.getItem('token'); 
+                setDL(response.data['durl']);
+                var formo = {
+                  "name": selectedFile.name,
+                  "ext": selectedFile.name.split('.').pop(),
+                  "durl": response.data['durl'],
+                  "key": password,
+                }
+                axios.post('http://localhost:7000/api/crypto/image-encryption', formo, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        // 'Content-Type': 'multipart/form-data'
+                    }
+                }).then((resp: any) => {
+                  console.log(resp)
+                  if (resp.data['success'] === false) {
+                    setLoading(false);
+                    return alert('Error uploading file: ' + resp.data.message);
+                  }
+                  setEncryptedFile(`${window.location.origin}/decrypt/${resp.data['code']}`);
+                  setLoading(false);
+                }).catch((error: any) => {
+                  setLoading(false);
+                  alert('Error uploading file: ' + error);
+                });
               } else {
                 console.log("Error: "+response.data['message']);
+                setLoading(false);
                 alert('Error uploading file');
               }
             })
             .catch((error: any) => {
+              setLoading(false);
               alert('Error uploading file: ' + error);
             });
         } catch (error: any) {
+          setLoading(false);
           alert('Error uploading file:' + error);
         }
       } else {
+        setLoading(false);
         alert('Error reading file');
       }
     };
@@ -97,6 +127,10 @@ export const ImgEncrypt: React.FC = () => {
   };
 
   return (
+    <>
+    {loading && (
+      <AttackLoading />
+    )}
     <div className="flex items-end justify-center w-full">
       <div className="relative mr-4 text-left md:w-full lg:w-full xl:w-1/2">
         { (encryptedFile !== null) ? (
@@ -172,4 +206,5 @@ export const ImgEncrypt: React.FC = () => {
         )}
       </div>
     </div>
+    </>
 )}

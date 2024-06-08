@@ -5,12 +5,13 @@
 
 import React, { useState } from 'react';
 import Lottie from 'react-lottie';
-import loadingData from '../../assets/server.json';
-export const ScreenLoading = () => {
+import completedData from '../../assets/completed.json';
+
+export const CompletedLoading = () => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData: loadingData,
+    animationData: completedData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice'
     }

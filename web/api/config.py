@@ -4,6 +4,6 @@
 import os, dotenv
 dotenv.load_dotenv()
 
-KEY = os.getenv('KEY').encode('utf-8')
+KEY = os.getenv('KEY')#.encode('utf-8')
 MONGODB_URL = os.getenv('MONGODB_URL')
 DATABASE_NAME = os.getenv('DATABASE_NAME')

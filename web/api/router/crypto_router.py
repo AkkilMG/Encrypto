@@ -37,10 +37,11 @@ async def imageEncryption(request: Request, id: str = Depends(verify_token)):
         return JSONResponse({ "success": False, "message": "Something went wrong"})
 
 @router.post("/image-decryption")
-async def imageDecryption(request: Request, id: str = Depends(verify_token)):
+async def imageDecryption(request: Request):
     try:
         data = await request.json()
         result = await FileRetrieve(data["code"])
+        print(result)
         return JSONResponse(result)
     except Exception as e:
         print(f"Error: {e}")

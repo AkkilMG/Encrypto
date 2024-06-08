@@ -35,7 +35,7 @@ const DashboardHeader: React.FC = () => {
                 </svg>
             </button>
             <a href="/" className="flex ms-2 md:me-24">
-              <img src="/assets/logo.png" className="h-8 me-3" alt="Cryptography Project" />
+              <img src="/assets/logo.png" className="h-8 me-3" alt="Encrypto" />
             </a>
           </div>
           <div className="flex items-center">
@@ -171,7 +171,7 @@ const DashboardHeader: React.FC = () => {
 const DashboardFooter: React.FC = () => {
   return (
     <footer className="fixed bottom-0 w-full py-4 text-center text-white">
-        <p>&copy; {new Date().getFullYear()} Cryptography Project. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Encrypto. All rights reserved.</p>
     </footer>
   );
 }

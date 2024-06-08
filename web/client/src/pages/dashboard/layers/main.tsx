@@ -1,6 +1,6 @@
 /**
  * @author: @AkkilMG
- * @description: DBMS Project - Cryptography Project
+ * @description: Cryptography Project - Encrypto
  */
 
 import axios from 'axios';

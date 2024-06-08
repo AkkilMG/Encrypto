@@ -1,22 +1,18 @@
 /**
  * @author: @AkkilMG
- * @description: DBMS Project - Cryptography Project
+ * @description: Cryptography Project - Encrypto
  */
 
 import React, { useState, ChangeEvent } from 'react';
 import CryptoJS from 'crypto-js';
+import { AttackLoading } from '../../components/common/attack';
 
 export const ImgDecrypt: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [decryptedFile, setDecryptedFile] = useState<string | null>(null);
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files) {
-  //     setSelectedFile(event.target.files[0]);
-  //   }
-  // };
+  const [loading, setLoading] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -41,9 +37,11 @@ export const ImgDecrypt: React.FC = () => {
     setPassword(e.target.value);
   };
   
-  const handleDecrypt = () => {
+  const handleDecrypt = async () => {
+    setLoading(true)
     if (!selectedFile) {
       alert('Please upload an encrypted file first');
+      setLoading(false)
       return;
     }
     // console.log(password)
@@ -58,12 +56,18 @@ export const ImgDecrypt: React.FC = () => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       alert('Decryption failed. Please ensure the file and key are correct.');
     }
   };
   return (
-    <div className="flex items-end justify-center w-full">
+    <>
+      {loading && (
+        <AttackLoading />
+      )}
+      <div className="flex items-end justify-center w-full">
       <div className="relative mr-4 text-left md:w-full lg:w-full xl:w-1/2">
         {decryptedFile ? (
           <div className="py-12 mt-14">
@@ -124,5 +128,6 @@ export const ImgDecrypt: React.FC = () => {
         )}
       </div>
     </div>
+    </>
   );
 };

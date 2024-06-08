@@ -1,6 +1,6 @@
 /**
  * @author: @AkkilMG
- * @description: DBMS Project - Cryptography Project
+ * @description: Cryptography Project - Encrypto
  */
 
 
@@ -27,7 +27,7 @@ export const Forgot = () => {
   <main className="flex flex-col">
     <header className="fixed top-0 z-50 hidden w-full text-gray-100 transition-all duration-300 ease-in-out lg:block lg:w-1/3 body-font">
       <div className="container flex flex-row flex-wrap items-center p-5 mx-auto">
-        <a className="flex-grow font-semibold text-2x1" href="/"><img src='./assets/logo.png' className='w-40 no-drag' alt='Cryptography Project' /></a>
+        <a className="flex-grow font-semibold text-2x1" href="/"><img src='./assets/logo.png' className='w-40 no-drag' alt='Encrypto' /></a>
       </div>
     </header>
     <div className="flex flex-row flex-grow">
@@ -39,7 +39,7 @@ export const Forgot = () => {
       </div>
       <div className="flex items-center justify-center flex-grow p-6 lg:w-2/3 ">
         <div className="w-full max-w-md">
-          <h2 className="flex flex-row mb-6 text-2xl font-bold">Reset password now <span> </span><img src='./assets/logo-dark.png' className='w-40 no-drag' alt='Cryptography Project' /></h2>
+          <h2 className="flex flex-row mb-6 text-2xl font-bold">Reset password now <span> </span><img src='./assets/logo-dark.png' className='w-40 no-drag' alt='Encrypto' /></h2>
           <form>
             <div className="mb-6">
               <span className="flex items-center justify-between mb-2 font-sans font-bold text-gray-700 text-sl">

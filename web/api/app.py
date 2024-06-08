@@ -13,7 +13,7 @@ import router.crypto_router as crypto_router
 
 app = FastAPI(
     title="Cryptography-Project",
-    description="This is an application as a service to provide cryptography project.",
+    description="This is an application as a service to provide Encrypto.",
     version="0.0.2",
     contact={
         "name": "Akkil M G",

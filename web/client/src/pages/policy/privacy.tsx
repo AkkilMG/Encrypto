@@ -1,6 +1,6 @@
 /**
  * @author: @AkkilMG
- * @description: DBMS Project - Cryptography Project
+ * @description: Cryptography Project - Encrypto
  */
 
 import React from 'react';
@@ -19,7 +19,7 @@ export const Privacy = () => {
           <div className="max-w-3xl p-4 mx-auto">
             <h1 className="mb-4 text-3xl font-bold">Privacy Policy</h1>
             <p className="mb-4">
-              At Cryptography Project, we are committed to protecting your privacy. This Privacy Policy outlines how your personal information is collected, used, and shared when you use our application.
+              At Encrypto, we are committed to protecting your privacy. This Privacy Policy outlines how your personal information is collected, used, and shared when you use our application.
             </p>
             <h2 className="mb-2 text-xl font-bold">Information We Collect</h2>
             <p className="mb-4">

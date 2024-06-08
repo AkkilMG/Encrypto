@@ -14,7 +14,7 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
     token = credentials.credentials
     try:
         payload = jwt.decode(token, KEY, algorithms=["HS256"])
-        user_id = await decrypt(payload["id"])
+        user_id = decrypt(payload["id"])
         return user_id
     except JWTError:
         raise HTTPException(
@@ -26,10 +26,16 @@ async def verify_token(credentials: HTTPAuthorizationCredentials = Depends(secur
 # async def verify_token_endpoint(user_id: str = Depends(verify_token)):
 #     return {"success": True, "user_id": user_id}
 
-async def create_token(id: str) -> dict:
+async def create_token(id: str):
     try:
-        encrypted_id = await encrypt(id)
-        token = jwt.encode({"id": encrypted_id}, KEY, algorithm="HS256", expires_delta=datetime.timedelta(days=7))
+        encrypted_id = encrypt(id)
+        # token = jwt.encode({"id": encrypted_id}, KEY, algorithm="HS256", expires_delta=datetime.timedelta(days=7))
+        expiration_time = datetime.datetime.utcnow() + datetime.timedelta(days=7)
+        payload = {
+            "id": encrypted_id,
+            "exp": expiration_time 
+        }
+        token = jwt.encode(payload, KEY, algorithm="HS256")
         return {"success": True, "token": token}
     except Exception as e:
         print(f"createToken: {e}")

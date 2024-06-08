@@ -21,8 +21,9 @@ async def FileStore(id: string, data: any):
         "owner": ObjectId(id)
     }
     result = await db.file.insert_one(data)
+    print(result)
     return { "success": True, "code": code }
 
 async def FileRetrieve(code: str):
     result = await db.file.find_one({ "code": code })
-    return { "success": True, "data": result }
+    return { "success": True, "durl": result['durl'], 'name': result['name'] }

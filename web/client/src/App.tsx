@@ -15,6 +15,7 @@ import axios from 'axios';
 import { ImgEncrypt } from './pages/image/imgEncrypt';
 import { ImgDecrypt } from './pages/image/imgDecrypt';
 import { SQLInjection } from './pages/sqlinjection/sqlinjection';
+import { ImgDecryptLink } from './pages/image/imgDecryptLink';
 
 
 const Routing: React.FC = () => {
@@ -30,13 +31,15 @@ const Routing: React.FC = () => {
   }, []);
 
   let component;
+  console.log(path);
   if (path === undefined || path === "/") {
     component = <Home />
-  } else if (path === "encrypt") {
+  } else if (path==="encrypt") {
     component = <ImgEncrypt />
-  } else if (path === "decrypt") {
+    // with /secure/<id> show a page and with secure another page, secure should get the id
+  } else if (path==="decrypt") {
     component = <ImgDecrypt />
-  } else if (path === "sqlinjection") {
+  } else if (path==="sqlinjection") {
     component = <SQLInjection />
   } else {
     component = <NotFoundPage />;
@@ -93,15 +96,15 @@ export const App = () => {
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       {/* Crypto */}
-      {/* <Route path="/encrypt" element={<ImgEncrypt />} />
-      <Route path="/decrypt" element={<ImgDecrypt />} />
+      {/* <Route path="/encrypt" element={<ImgEncrypt />} />*/}
+      <Route path="/decrypt/:id" element={<ImgDecryptLink />} />
 
-      <Route path="/sqlinjection" element={<SQLInjection />} /> */}
+      {/* <Route path="/sqlinjection" element={<SQLInjection />} /> */}
       {/* Dashboard */}
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/:path" element={<Dashboard />} />
       {/* Other routing */}
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={<Home />} />
       <Route path="/:path" element={<Routing />} />
     </Routes>
   );
