@@ -104,7 +104,7 @@ export const App = () => {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/dashboard/:path" element={<Dashboard />} />
       {/* Other routing */}
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Dashboard />} />
       <Route path="/:path" element={<Routing />} />
     </Routes>
   );

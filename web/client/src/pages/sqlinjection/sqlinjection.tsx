@@ -13,15 +13,6 @@ export const SQLInjection: FC = () => {
     setURL(e.target.value);
   };
 
-  useEffect(() => {
-    if (completed === true) {
-      const timer = setTimeout(() => {
-        setCompleted(false);
-      }, 2000);
-      return () => clearTimeout(timer); // Clear the timer when the component unmount
-    }
-  }, []);
-
   const sqlInject = async () => {
     setLoading(true)
     if (url === '') {
@@ -36,9 +27,20 @@ export const SQLInjection: FC = () => {
         const response = await axios.post('http://localhost:7000/api/crypto/sql-injection', formData);
         console.log("Done")
         if (response.status === 200 && response.data.success) {
-          setHack(response.data.tables)
+          var table = response.data.tables.map((val: string)=> {
+            console.log("Processing value:", val);
+            return val.trim()
+          })
+
+          console.log(table)
+          setHack(table.join(' | '))
           console.log(response.data)
           setLoading(false)
+          setCompleted(true)
+          const timer = setTimeout(() => {
+              setCompleted(false);
+            }, 2000);
+          return () => clearTimeout(timer); // Clear the timer when the component unmount
         } else if (response.status === 200 && !response.data.success) {
           setLoading(false)
           alert(response.data.message);
