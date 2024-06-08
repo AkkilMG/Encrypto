@@ -49,8 +49,7 @@ export const ImgDecrypt: React.FC = () => {
       const decrypted = CryptoJS.AES.decrypt(selectedFile, password).toString(CryptoJS.enc.Utf8);
       const decryptedDataUrl = `data:image/png;base64,${decrypted}`;
       setDecryptedFile(decryptedDataUrl);
-      console.log(decryptedDataUrl)
-      if (decryptedDataUrl) {
+      if (decryptedDataUrl !== 'data:image/png;base64,') {
         const link = document.createElement('a');
         link.href = decryptedDataUrl;
         link.download = "download.png";
@@ -73,7 +72,7 @@ export const ImgDecrypt: React.FC = () => {
       )}
       <div className="flex items-end justify-center w-full">
       <div className="relative mr-4 text-left md:w-full lg:w-full xl:w-1/2">
-        {decryptedFile ? (
+        {(decryptedFile && decryptedFile !== 'data:image/png;base64,') ? (
           <div className="py-12 mt-14">
             <div className="mt-14">
               <img src={decryptedFile} alt="Decrypted" />
