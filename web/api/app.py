@@ -46,6 +46,10 @@ app.include_router(crypto_router.router, prefix="/api/crypto")
 if __name__ == "__main__":
     try:
         print('------------------- Initalizing Web Server -------------------')
+        print('------------------- Installing Dependencies -------------------')
+        if not os.path.exists("sqlmap"):
+            os.system("git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap")
+        print('------------------- Finished Dependencies -------------------')
         print('----------------------- Service Started -----------------------')
         uvicorn.run("app:app", host="0.0.0.0", port=7000, reload=True)
     except KeyboardInterrupt:
